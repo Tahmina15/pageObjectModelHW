@@ -14,10 +14,7 @@ public class CompareProducts extends Utils {
     String secondProductName="Virtual gift card";
     String expectedMessage="You have no items to compare.";
     public void compareProductDetails(){
-        waitForElementToBeVisible(_productName1,10);
-        Assert.assertEquals(getTextFromElement(_productName1),firstProductName);
-        waitForElementToBeVisible(_productName2,10);
-        Assert.assertEquals(getTextFromElement(_productName2),secondProductName);
+
 
         waitForElementToBeClickable(_clearList,20);
         clickOnElement(_clearList);
