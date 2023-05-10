@@ -1,8 +1,11 @@
 package org.example;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import org.testng.annotations.Test;
+
+import java.util.List;
 
 public class HomePage extends Utils {
     private By _register = By.className("ico-register");
@@ -26,7 +29,7 @@ public class HomePage extends Utils {
     }
 
     public void getTextFromVoteResult() {
-       waitforInvisibleElement(_voteResult,10);
+       waitForInvisibleElement(_voteResult,10);
         Assert.assertEquals(getTextFromElement(_voteResult), expectedVoteResult);
     }
 
@@ -58,10 +61,101 @@ public class HomePage extends Utils {
     private By _Electronics = By.xpath("//div[@class='header-menu']//ul[@class='top-menu notmobile']//a[@href='/electronics']");
      public void clickOnElectronics(){
          clickOnElement(_Electronics);
+     }
+   private By _productTitles=By.xpath("//h2[@class=\"product-title\"]/a");
+   public void printOutProductTitled(){
+       //method for printOut multiple products from same aile
+       List<WebElement>productList=driver.findElements(_productTitles);
+       for (WebElement e:productList) {
+           System.out.println(e.getText());}
+       }
+       private By _searchButton=By.xpath("//button[@class='button-1 search-box-button']");
+       public void searchAlert(){
+           //while searching something without mention an alert should appear
+           clickOnElement(_searchButton);
+           Alert alert = driver.switchTo().alert();
+           Assert.assertEquals(alert.getText(),"Please enter some search keyword");
+           alert.accept();
+       }
+       private By _currency=By.id("customerCurrency");
+       public void currencyInDollar(){
+           //When selecting Dollar all products should contain dollar($) symbol
+         selectFromDropdownVisibleText(_currency,"US Dollar");
+           List<WebElement> productPrice=driver.findElements(By.xpath("//span[@class=\"price actual-price\"]"));
+           System.out.println("Currency in Dollar ");
+           for (WebElement element:productPrice) {
+               System.out.println(element.getText());
+        Assert.assertTrue(element.getText().contains("$"));
+
+           }}
+    public void currencyInEuro(){
+           //When selecting euro all products should contain euro symbol
+     selectFromDropdownVisibleText(_currency,"Euro");
+
+    List<WebElement> productPriceInEuro=driver.findElements(By.xpath("//span[@class=\"price actual-price\"]"));
+        System.out.println("Currency in Euro ");
+         for (WebElement element:productPriceInEuro) {
+             System.out.println(element.getText());
+             Assert.assertTrue(element.getText().contains("€"));
+       }}
+
+
+       private By _searchBox=By.id("small-searchterms");
+       private  By _items=By.xpath("//h2[@class='product-title']");
+       public void searchItems(){
+           //verify when search a product appropriate items should appear
+
+         typeTextFromElement(_searchBox,"Nike");
+           clickOnElement(_searchButton);
+           List<WebElement>items=driver.findElements(_items);
+           for (WebElement p:items)
+           {System.out.println(p.getText());
+
+           }}
+
+          private By _nopCommerceDetails=By.xpath("//div[@class=\"buttons\"]//a[@href=\"/nopcommerce-new-release\"]");
+
+          public void nopCommerceNewReleaseDetails(){
+              //click on nopcommerce new release
+              clickOnElement(_nopCommerceDetails);
+
+          }
+
+         public void voteAlert(){
+              //verify alert should come when click on vote without selecting answer
+              clickOnElement(_vote);
+             Alert alert = driver.switchTo().alert();
+             Assert.assertEquals(alert.getText(),"Please ssselect an answer");
+             alert.accept();
+         }
+         private By _addToCartComputer=By.xpath("//div[@class=\"product-grid home-page-product-grid\"]/div[2]/div[1]//button[1]");
+         public void buildYourOwnComputer(){
+
+             clickOnElement(_addToCartComputer);
+         }
+
+         private By _facebookButton=By.xpath("//a[@href=\"http://www.facebook.com/nopCommerce\"]");
+    public void facebook(){
+        //click on facebook
+        clickOnElement(_facebookButton);
 
     }
+    private By _welcome=By.xpath("//div[@class=\"topic-block\"]/div/h2");
+    public void cameBackMainWindow(){
+        //printing the welcome message from main window
+        clickOnElement(_welcome);
+        Assert.assertEquals(getTextFromElement(_welcome),"Welcome to our store");
+    }
+
+
+
+
+
+
+
 
 }
+
 
 
 

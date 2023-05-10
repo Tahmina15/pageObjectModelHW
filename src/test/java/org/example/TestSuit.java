@@ -17,8 +17,16 @@ public class TestSuit extends BaseTest{
     CameraAndPhotoPage cameraAndPhoto = new CameraAndPhotoPage();
     ElectronicsPage electronicsPage = new ElectronicsPage();
     CartPage cartPage = new CartPage();
-
-
+    NopCommercePage nopCommercePage=new NopCommercePage();
+    BuildYourOwnComputer buildYourOwnComputer = new BuildYourOwnComputer();
+    CheckOutAsGuest checkOutAsGuest = new CheckOutAsGuest();
+    OnePageCheckOutBilling onePageCheckOutBilling =new OnePageCheckOutBilling();
+   ShippingMethod shippingMethod=new ShippingMethod();
+   PaymentMethod paymentMethod =new PaymentMethod();
+   OpcPaymentInfo opcPaymentInfo=new OpcPaymentInfo();
+   OpcConfirmOrder opcConfirmOrder=new OpcConfirmOrder();
+   CheckoutComplete checkoutComplete=new CheckoutComplete();
+   FaceBookPage faceBookPage =new FaceBookPage();
     @Test
     public void verifyUserShouldRegisterSuccessfully(){
         //click on registration
@@ -89,6 +97,7 @@ public class TestSuit extends BaseTest{
 
     }
     @Test
+    //verify that whatever product you add it should go in to the shopping busket
     public void toVerifyTheShoppingBusketContainsAppropriateIteams(){
         //click on electronics from homepage
     homePage.clickOnElectronics();
@@ -100,5 +109,66 @@ public class TestSuit extends BaseTest{
     cartPage.shoppingCartDetails();
     }
 
+    @Test
+    //printOut multiple products from same aile
+    public void toVerifyUserShouldSeeTheProductList(){
+        homePage.printOutProductTitled();
+    }
+    @Test
+public void toVerifyUserCanAcceptAlertMessage()
+    //while searching something without mention an alert should appear
+    {
+        homePage.searchAlert();
+}
+@Test
+//When selecting Dollar all products should contain dollar($) symbol
+   public void toVerifyUserShouldSeeTheProductsInDollarWhenTheySelectDollarCurrency()
+       {homePage.currencyInDollar();}
+    @Test
+    //When selecting euro all products should contain euro symbol
+    public void toVerifyUserShouldSeeTheProductsWithEuroSignWhenTheySelectEuroCurrency()
+    {
+        homePage.currencyInEuro();
+    }
+@Test
+//verify when search a product appropriate items should appear
+public void toVerifyUserShouldSearchAndSeeTheSearchProductSuccessfully()
+   {
+    homePage.searchItems();
+   }
+@Test
+public void toVerifyUserShouldLeaveAComment(){
+    homePage.nopCommerceNewReleaseDetails();
+    nopCommercePage.newReleaseComments();
+}
+@Test
+public void toVerifyUserShouldGetAlertMessageWhenTheyClickOnVoteWithoutSelection(){
+        homePage.voteAlert();
+}
 
+@Test
+//to verify guest user should buy a product successfully
+public void toVerifyUserShouldCheckoutAsGuest(){
+    homePage.buildYourOwnComputer();
+    buildYourOwnComputer.productDetails();
+    cartPage.buidOwnComp();
+    checkOutAsGuest.checkOutAsAGuest();
+    onePageCheckOutBilling.checkOut();
+    shippingMethod.checkOut();
+    paymentMethod.payMethod();
+    opcPaymentInfo.checkOutPaymentInfo();
+    opcConfirmOrder.confirmOrder();
+    checkoutComplete.checkoutConfirmation();
+
+
+    }
+    @Test
+    //multiple window handling
+    public void toVerifyMultipleWindowsHandleOnFacebookSymbol(){
+     homePage.facebook();
+     faceBookPage.goOnFacebookPage();
+     homePage.cameBackMainWindow();
+
+
+    }
 }
